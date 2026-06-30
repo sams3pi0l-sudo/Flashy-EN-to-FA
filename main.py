@@ -56,6 +56,10 @@ if 'words_data_list' not in st.session_state:
 
 # 2. Pick a random word if we don't have one
 if 'current_word' not in st.session_state:
+    if len(st.session_state.words_data_list) > 0:
+        st.session_state.current_word = random.choice(st.session_state.words_data_list)
+    else:
+        st.session_state.current_word = None
     st.session_state.current_word = random.choice(st.session_state.words_data_list)
 
 # 3. Keep track of whether the card is showing front (False) or back (True)
@@ -69,7 +73,10 @@ def flip_card():
 
 def next_card():
     # Pick a new word and flip the card back to the front
-    st.session_state.current_word = random.choice(st.session_state.words_data_list)
+    if len(st.session_state.words_data_list) > 0:
+        st.session_state.current_word = random.choice(st.session_state.words_data_list)
+    else:
+        st.session_state.current_word = None
     st.session_state.is_flipped = False
 
 def is_known():
@@ -88,6 +95,11 @@ def is_known():
 
 # --- User Interface ---
 st.title("📇 Flashy - For You My Precious❤️")
+
+if len(st.session_state.words_data_list) == 0 or st.session_state.current_word is None:
+    st.success("🎉 Congratulations! You have learned all the words!")
+    st.balloons() # This triggers a nice celebration animation!
+    st.stop()     # This safely stops rendering the rest of the page
 
 # Display the card based on whether it is flipped or not
 if not st.session_state.is_flipped:
