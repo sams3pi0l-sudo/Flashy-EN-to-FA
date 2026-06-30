@@ -87,7 +87,7 @@ def is_known():
 
 
 # --- User Interface ---
-st.title("📇 Flashy - Language Learning")
+st.title("📇 Flashy - For You My Precious❤️")
 
 # Display the card based on whether it is flipped or not
 if not st.session_state.is_flipped:
